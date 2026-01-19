@@ -78,7 +78,17 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
 
     @Override
     public T get(int index) {
-        return null;
+        if (index <= 0) {
+            return null;
+        }
+        Node pointer = sentinel.next;
+        for (int i = 0; i < index - 1; i++) {
+            if (pointer.next == sentinel) {
+                return null;
+            }
+            pointer = pointer.next;
+        }
+        return pointer.item;
     }
 
     @Override
