@@ -278,7 +278,7 @@ public class LinkedListDeque61BTest {
 
          /* I've decided to add in comments the state after each call for the convenience of the
             person reading this test. Some programmers might consider this excessively verbose. */
-        lld1.addLast(0);   // [0]
+        lld1.addLast(4);   // [0]
         lld1.removeLast();   // []
 
         assertThat(lld1.removeLast()).isNull();
