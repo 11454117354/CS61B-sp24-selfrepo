@@ -20,4 +20,48 @@ public class ArrayDeque61BTest {
 //         assertWithMessage("Found fields that are not array or primitives").that(badFields).isEmpty();
 //     }
 
+     /** This tests addFirst in a short number list */
+     @Test
+     void addFirstTest() {
+        Deque61B<Integer> alist = new ArrayDeque61B<>();
+
+        alist.addFirst(3);
+        alist.addFirst(4);
+        alist.addFirst(5);
+
+        assertThat(alist.toList()).containsExactly(5, 4, 3).inOrder();
+     }
+
+    /** This tests addFirst in a longer number list */
+    @Test
+    void addFirstLongerTest() {
+        Deque61B<Integer> alist = new ArrayDeque61B<>();
+
+        alist.addFirst(3);
+        alist.addFirst(4);
+        alist.addFirst(5);
+        alist.addFirst(6);
+        alist.addFirst(7);
+        alist.addFirst(8);
+        alist.addFirst(9);
+        alist.addFirst(10);
+
+        assertThat(alist.toList()).containsExactly(10, 9, 8, 7, 6, 5, 4, 3).inOrder();
+    }
+
+    /** This tests addFirst and addLast and get in a longer number list */
+    @Test
+    void addFirstAddLastGetTest() {
+        Deque61B<Integer> alist = new ArrayDeque61B<>();
+
+        alist.addFirst(3);
+        alist.addLast(4);
+        alist.addFirst(5);
+
+        assertThat(alist.toList()).containsExactly(5, 3, 4).inOrder();
+        assertThat(alist.get(1)).isEqualTo(5);
+        assertThat(alist.get(2)).isEqualTo(3);
+        assertThat(alist.get(3)).isEqualTo(4);
+    }
+
 }
