@@ -45,8 +45,10 @@ public class ArrayDeque61BTest {
         alist.addFirst(8);
         alist.addFirst(9);
         alist.addFirst(10);
+        alist.addFirst(11);
+        alist.addFirst(12);
 
-        assertThat(alist.toList()).containsExactly(10, 9, 8, 7, 6, 5, 4, 3).inOrder();
+        assertThat(alist.toList()).containsExactly(12, 11, 10, 9, 8, 7, 6, 5, 4, 3).inOrder();
     }
 
     /** This tests addFirst and addLast and get in a longer number list */

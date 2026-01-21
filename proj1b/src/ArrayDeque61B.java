@@ -23,7 +23,6 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     public void addFirst(T x) {
         if (size == items.length) {
             resize(size * 2);
-            arrayLenth *= 2;
         }
         items[nextFirst] = x;
         nextFirst = Math.floorMod(nextFirst - 1, arrayLenth);
@@ -34,7 +33,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         T[] a = (T[]) new Object[capacity];
         int i = Math.floorMod(nextFirst + 1, arrayLenth);
         int j = 0;
-        while(j < arrayLenth) {
+        while(j < size) {
             a[j] = items[i];
             i = Math.floorMod(i + 1, arrayLenth);
             j++;
@@ -49,10 +48,9 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     public void addLast(T x) {
         if (size == items.length) {
             resize(size * 2);
-            arrayLenth *= 2;
         }
         items[nextLast] = x;
-        nextLast = Math.floorDiv(nextLast + 1, arrayLenth);
+        nextLast = Math.floorMod(nextLast + 1, arrayLenth);
         size += 1;
     }
 
