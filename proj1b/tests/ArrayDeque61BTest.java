@@ -61,9 +61,36 @@ public class ArrayDeque61BTest {
         alist.addFirst(5);
 
         assertThat(alist.toList()).containsExactly(5, 3, 4).inOrder();
-        assertThat(alist.get(1)).isEqualTo(5);
-        assertThat(alist.get(2)).isEqualTo(3);
-        assertThat(alist.get(3)).isEqualTo(4);
+        assertThat(alist.get(0)).isEqualTo(5);
+        assertThat(alist.get(1)).isEqualTo(3);
+        assertThat(alist.get(2)).isEqualTo(4);
+    }
+
+    /** This tests addFirst and addLast and get and size and isEmpty in a longer number list */
+    @Test
+    void addFirstAddLastSizeIsEmptyLongerTest() {
+        Deque61B<Integer> alist = new ArrayDeque61B<>();
+
+        assertThat(alist.isEmpty()).isTrue();
+        assertThat(alist.size()).isEqualTo(0);
+
+        alist.addFirst(3);
+        alist.addLast(4);
+        alist.addFirst(5);
+        alist.addLast(6);
+        alist.addFirst(7);
+        alist.addLast(8);
+        alist.addFirst(9);
+        alist.addLast(10);
+        alist.addFirst(11);
+        alist.addLast(12);  // [11, 9, 7, 5, 3, 4, 6, 8, 10, 12]
+
+        assertThat(alist.toList()).containsExactly(11, 9, 7, 5, 3, 4, 6, 8, 10, 12).inOrder();
+        assertThat(alist.size()).isEqualTo(10);
+        assertThat(alist.get(2)).isEqualTo(7);
+        assertThat(alist.get(8)).isEqualTo(10);
+        assertThat(alist.get(9)).isEqualTo(12);
+        assertThat(alist.get(10)).isNull();
     }
 
 }
