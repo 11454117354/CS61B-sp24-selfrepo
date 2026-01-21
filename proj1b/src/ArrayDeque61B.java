@@ -31,8 +31,18 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     }
 
     private void resize(int capacity) {
-        int[] a = new int[capacity];
-
+        T[] a = (T[]) new Object[capacity];
+        int i = Math.floorMod(nextFirst + 1, arrayLenth);
+        int j = 0;
+        while(j < arrayLenth) {
+            a[j] = items[i];
+            i = Math.floorMod(i + 1, arrayLenth);
+            j++;
+        }
+        nextFirst = capacity - 1;
+        nextLast = size;
+        arrayLenth = capacity;
+        items = a;
     }
 
     @Override
@@ -50,7 +60,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     public List toList() {
         List<T> returnList = new ArrayList<>();
         int i = Math.floorMod(nextFirst + 1, arrayLenth);
-        while(items[i] != null) {
+        for (int j = 0; j < size; j++) {
             returnList.add(items[i]);
             i = Math.floorMod(i + 1, arrayLenth);
         }
