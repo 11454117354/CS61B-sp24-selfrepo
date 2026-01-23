@@ -149,4 +149,28 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
             return returnItem;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Deque61B<?> deq) {
+            if (this == obj) {
+                return true;
+            }
+
+            if (deq.size() != this.size) {
+                return false;
+            }
+
+            int index = 0;
+            for (T item : this) {
+                Object otherItem = deq.get(index);
+                if (!item.equals(otherItem)) {
+                    return false;
+                }
+                index++;
+            }
+            return true;
+        }
+        return false;
+    }
 }
