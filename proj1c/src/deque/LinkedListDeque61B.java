@@ -1,7 +1,5 @@
 package deque;
 
-import org.apache.bcel.classfile.ArrayElementValue;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,7 +7,26 @@ import java.util.ArrayList;
 public class LinkedListDeque61B<T> implements Deque61B<T>{
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new DLListIterator();
+    }
+
+    private class DLListIterator implements Iterator<T> {
+        private Node pointer = sentinel.next;
+
+        @Override
+        public boolean hasNext() {
+            return pointer != sentinel;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new java.util.NoSuchElementException();
+            }
+            T returnItem = pointer.item;
+            pointer = pointer.next;
+            return returnItem;
+        }
     }
 
     public class Node {
@@ -63,10 +80,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
 
     @Override
     public boolean isEmpty() {
-        if (sentinel.next == sentinel) {
-            return true;
-        }
-        return false;
+        return sentinel.next == sentinel;
     }
 
     @Override
