@@ -1,5 +1,6 @@
 package deque;
 
+import org.apache.commons.collections.iterators.ArrayListIterator;
 import org.checkerframework.checker.units.qual.A;
 
 import java.lang.Math;
@@ -123,6 +124,29 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new ArrayListIterator();
+    }
+
+    private class ArrayListIterator implements Iterator<T> {
+        private int pos;
+        private int index;
+
+        public ArrayListIterator() {
+            pos = 0;
+            index = Math.floorMod(nextFirst + 1, arrayLength);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return pos < size;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = items[index];
+            index = Math.floorMod(index + 1, arrayLength);
+            pos++;
+            return returnItem;
+        }
     }
 }
