@@ -15,20 +15,29 @@ public class UnionFind {
     /* Returns the size of the set V belongs to. */
     public int sizeOf(int v) {
         // TODO: YOUR CODE HERE
-        return -1;
+        if (v >= parent.length || v < 0) {
+            throw new IllegalArgumentException("Index out of bound");
+        }
+        return -parent[find(v)];
     }
 
     /* Returns the parent of V. If V is the root of a tree, returns the
        negative size of the tree for which V is the root. */
     public int parent(int v) {
         // TODO: YOUR CODE HERE
-        return -1;
+        if (v >= parent.length || v < 0) {
+            throw new IllegalArgumentException("Index out of bound");
+        }
+        return parent[v];
     }
 
     /* Returns true if nodes/vertices V1 and V2 are connected. */
     public boolean connected(int v1, int v2) {
         // TODO: YOUR CODE HERE
-        return false;
+        if (v1 >= parent.length || v1 < 0 || v2 >= parent.length || v2 < 0) {
+            throw new IllegalArgumentException("Index out of bound");
+        }
+        return find(v1) == find(v2);
     }
 
     /* Returns the root of the set V belongs to. Path-compression is employed
@@ -59,6 +68,23 @@ public class UnionFind {
        already connected should not change the structure. */
     public void union(int v1, int v2) {
         // TODO: YOUR CODE HERE
+        if (v1 >= parent.length || v1 < 0 || v2 >= parent.length || v2 < 0) {
+            throw new IllegalArgumentException("Index out of bound");
+        }
+        int root1 = find(v1);
+        int root2 = find(v2);
+        if (root1 == root2) {
+            return;
+        }
+        int size1 = -parent[root1];
+        int size2 = -parent[root2];
+        if (size1 <= size2) {
+            parent[root2] += parent[root1];
+            parent[root1] = root2;
+        } else {
+            parent[root1] += parent[root2];
+            parent[root2] = root1;
+        }
     }
 
 }

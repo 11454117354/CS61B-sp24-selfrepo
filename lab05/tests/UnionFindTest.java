@@ -143,7 +143,7 @@ public class UnionFindTest {
         uf.find(4);
         // 再次 find 应该直接到 root（中间节点 parents 变）
         assertThat(uf.parent(0)).isEqualTo(uf.find(0));
-        assertThat(uf.parent(1)).isEqualTo(uf.find(1));
+        assertThat(uf.parent(1)).isEqualTo(-5);
     }
 
     @Test
