@@ -1,10 +1,15 @@
 public class UnionFind {
     // TODO: Instance variables
+    private int[] parent;
 
     /* Creates a UnionFind data structure holding N items. Initially, all
        items are in disjoint sets. */
     public UnionFind(int N) {
         // TODO: YOUR CODE HERE
+        parent = new int[N];
+        for (int i = 0; i < N; i++) {
+            parent[i] = -1;
+        }
     }
 
     /* Returns the size of the set V belongs to. */
@@ -31,7 +36,20 @@ public class UnionFind {
        function, throw an IllegalArgumentException. */
     public int find(int v) {
         // TODO: YOUR CODE HERE
-        return -1;
+        if (v >= parent.length || v < 0) {
+            throw new IllegalArgumentException("Index out of bound");
+        }
+        int root = v;
+        while (parent[root] >= 0) {
+            root = parent[root];
+        }
+        // Path compression
+        while (v != root) {
+            int next = parent[v];
+            parent[v] = root;
+            v = next;
+        }
+        return root;
     }
 
     /* Connects two items V1 and V2 together by connecting their respective
