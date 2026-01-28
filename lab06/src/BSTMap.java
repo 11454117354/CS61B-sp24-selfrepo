@@ -33,7 +33,23 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public void put(Object key, Object value) {
+        insert(root, (K) key, (V) value);
+    }
 
+    /** Is the helper method to insert a node in the right place recursively */
+    private Node insert(Node N, K key, V value) {
+        if (N == null) {
+            size++;
+            return new Node(key, value);
+        }
+        if (key.compareTo(N.key) < 0) {
+            N.left = insert(N.left, key, value);
+        } else if (key.compareTo(N.key) > 0) {
+            N.right = insert(N.right, key, value);
+        } else {
+            N.value = value;
+        }
+        return N;
     }
 
     /**
