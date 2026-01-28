@@ -78,7 +78,16 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public boolean containsKey(Object key) {
-        return finder(root, (K) key) != null;
+        return actuallyContainsKey(root, (K) key);
+    }
+
+    /** Returns true when key exists, even when value is null */
+    private boolean actuallyContainsKey(Node N, K key) {
+        if (N == null) return false;
+        int cmp = key.compareTo(N.key);
+        if (cmp < 0) return actuallyContainsKey(N.left, key);
+        else if (cmp > 0) return actuallyContainsKey(N.right, key);
+        else return true;
     }
 
     /**
@@ -86,7 +95,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
@@ -94,7 +103,8 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public void clear() {
-
+        root = null;
+        size = 0;
     }
 
     /**
