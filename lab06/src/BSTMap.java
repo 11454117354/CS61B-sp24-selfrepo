@@ -2,6 +2,27 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B {
+    private class Node {
+        K key;
+        V value;
+        Node left;
+        Node right;
+
+        Node (K k, V v) {
+            key = k;
+            value = v;
+            left = null;
+            right = null;
+        }
+    }
+    private Node root;
+    private int size;
+
+    public BSTMap() {
+        root = null;
+        size = 0;
+    }
+
     /**
      * Associates the specified value with the specified key in this map.
      * If the map already contains the specified key, replaces the key's mapping
