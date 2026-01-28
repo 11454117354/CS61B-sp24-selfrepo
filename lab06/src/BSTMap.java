@@ -33,7 +33,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public void put(Object key, Object value) {
-        insert(root, (K) key, (V) value);
+        root = insert(root, (K) key, (V) value);
     }
 
     /** Is the helper method to insert a node in the right place recursively */
@@ -60,7 +60,15 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public Object get(Object key) {
-        return null;
+        return finder(root, (K) key);
+    }
+
+    /** Finds the value corresponding to the key */
+    private V finder(Node N, K key) {
+        if (N == null) return null;
+        if (key.compareTo(N.key) < 0) return finder(N.left, key);
+        else if (key.compareTo(N.key) > 0) return finder(N.right, key);
+        else return N.value;
     }
 
     /**
@@ -70,7 +78,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public boolean containsKey(Object key) {
-        return false;
+        return finder(root, (K) key) != null;
     }
 
     /**
@@ -95,7 +103,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public Set keySet() {
-        return Set.of();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -108,7 +116,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public Object remove(Object key) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -118,6 +126,6 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public Iterator iterator() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 }
