@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Stack;
 import java.util.TreeSet;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B {
@@ -137,11 +138,53 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public Object remove(Object key) {
-        throw new UnsupportedOperationException();
+        K k = (K) key;
+        V returnValue = (V) get(k);
+        if (!actuallyContainsKey(root, k)) {
+            return null;
+        }
+        root = removeNode(root, k);
+        size--;
+        return returnValue;
+    }
+
+    private Node removeNode(Node root, K key) {
+        if (root == null) {
+            return null;
+        }
+        int cmp = key.compareTo(root.key);
+        if (cmp < 0) {
+            root.left = removeNode(root.left, key);
+        } else if (cmp > 0){
+            root.right = removeNode(root.right, key);
+        } else {
+            // 0 or 1 child
+            if (root.left == null) {
+                return root.right;
+            }
+            if (root.right == null) {
+                return root.left;
+            }
+
+            // 2 children
+            Node successor = findSuccessor(root.right);
+            root.key = successor.key;
+            root.value = successor.value;
+            root.right = removeNode(root.right, successor.key);
+        }
+        return root;
+    }
+
+    private Node findSuccessor(Node N) {
+        while (N.left != null) {
+            N = N.left;
+        }
+        return N;
     }
 
     /**
      * Returns an iterator over elements of type {@code T}.
+     * This is kind of hard. Maybe after learning stack it will be more accessible.
      *
      * @return an Iterator.
      */
@@ -149,4 +192,35 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
     public Iterator iterator() {
         throw new UnsupportedOperationException();
     }
+
+//    private class BSTMapIterator implements Iterator<K> {
+//        private Stack<Node> stack = new Stack<>();
+//
+//        BSTMapIterator(Node root) {
+//
+//        }
+//
+//        /**
+//         * Returns {@code true} if the iteration has more elements.
+//         * (In other words, returns {@code true} if {@link #next} would
+//         * return an element rather than throwing an exception.)
+//         *
+//         * @return {@code true} if the iteration has more elements
+//         */
+//        @Override
+//        public boolean hasNext() {
+//            return false;
+//        }
+//
+//        /**
+//         * Returns the next element in the iteration.
+//         *
+//         * @return the next element in the iteration
+//         * @throws NoSuchElementException if the iteration has no more elements
+//         */
+//        @Override
+//        public K next() {
+//            return null;
+//        }
+//    }
 }
