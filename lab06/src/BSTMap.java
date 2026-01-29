@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B {
     private class Node {
@@ -113,7 +114,17 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B {
      */
     @Override
     public Set keySet() {
-        throw new UnsupportedOperationException();
+        TreeSet<K> keySet = new TreeSet<>();
+        addKeysInOrder(root, keySet);
+        return keySet;
+    }
+
+    /** Add all keys in BST to a treeSet */
+    private void addKeysInOrder(Node N, TreeSet<K> keys) {
+        if (N == null) return;
+        addKeysInOrder(N.left, keys);
+        keys.add(N.key);
+        addKeysInOrder(N.right, keys);
     }
 
     /**
